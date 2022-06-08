@@ -49,8 +49,6 @@ son_digit= Pin(0, Pin.IN, Pin.PULL_DOWN)
      # son_analog.read()
      # son_digit.value() # 1 si son, 0 sinon.
 
-
-
 ##############################################################################################################
 ##  Boucle pincipale                                                                                        ##
 ##############################################################################################################
@@ -60,13 +58,16 @@ son_digit= Pin(0, Pin.IN, Pin.PULL_DOWN)
 temps = 0
 blinker = True
 while True :
+  tmp_factor = 1
   if son_digit.value() == 1:
     temps += 1
     minute  = int(temps / 60)
     seconde = int(temps % 60)
+    if bouton.value() == 1 :
+        tmp_factor = 1.0/5
     tm.numbers(minute,seconde, blinker)
-    time.sleep(0.5)
+    time.sleep(0.5*tmp_factor)
     blinker = not blinker
     tm.numbers(minute,seconde, blinker)
-    time.sleep(0.5)
+    time.sleep(0.5*tmp_factor)
     blinker = not blinker
